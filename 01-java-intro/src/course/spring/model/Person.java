@@ -6,5 +6,5 @@ public class Person {
     private Long id;
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
+    private LocalDate birthDate = LocalDate.now();
 }
