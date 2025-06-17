@@ -1,3 +1,6 @@
+import course.spring.dao.Repository;
+import course.spring.dao.impl.LongIdGenerator;
+import course.spring.dao.impl.RepositoryInMemory;
 import course.spring.model.Person;
 import course.spring.model.Role;
 import course.spring.model.User;
@@ -10,18 +13,25 @@ import static course.spring.model.Role.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Person> persons = new ArrayList<>();
-        persons.add(new User("John", "Smith", "john", "john123"));
-        persons.add(new User("Ivan", "Petrov", "ivan", "ivan123"));
-        persons.add(new User("Maria", "Hristova", "maria", "maria123"));
-        persons.add(new Person("Nedyalko", "Dimitrov", LocalDate.of(1979, 7,13)));
-        persons.add(new User("Maya", "Dimitrova", LocalDate.of(1984, 8,19),
+        List<User> users = new ArrayList<>();
+        users.add(new User("John", "Smith", "john", "john123"));
+        users.add(new User("Ivan", "Petrov", "ivan", "ivan123"));
+        users.add(new User("Maria", "Hristova", "maria", "maria123"));
+//        persons.add(new Person("Nedyalko", "Dimitrov", LocalDate.of(1979, 7,13)));
+        users.add(new User("Maya", "Dimitrova", LocalDate.of(1984, 8,19),
                 "maya", "maya123", ADMIN, "maya@gmail.com"));
 //        user.forEach(System.out::println);
 
-        for(Person p : persons) {
-            System.out.println(p.toString());
+        // Create UserRepository with LongIdGenerator
+        Repository<Long, User> userRepo = new RepositoryInMemory<>(new LongIdGenerator());
+
+        for(User u : users) {
+            userRepo.create(u);
         }
+
+        // Get all users from repo
+        var allUsers = userRepo.findAll();
+        allUsers.forEach(System.out::println);
 
     }
 }

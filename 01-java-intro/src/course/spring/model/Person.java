@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Person implements Identifiable<Long> {
-    private static Long nextId = 0L;
-
-    protected static Long getNextId() {
-        return ++nextId;
-    }
+//    private static Long nextId = 0L;
+//
+//    protected static Long getNextId() {
+//        return ++nextId;
+//    }
 
     private Long id;
     private String firstName;
@@ -16,7 +16,6 @@ public class Person implements Identifiable<Long> {
     private LocalDate birthDate = LocalDate.now();
 
     public Person() {
-        id = getNextId();
     }
 
     public Person(String firstName, String lastName) {
