@@ -10,20 +10,18 @@ import static course.spring.model.Role.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> user = new ArrayList<>();
-        user.add(new User("John", "Smith", "john", "john123"));
-        user.add(new User("Ivan", "Petrov", "ivan", "ivan123"));
-        user.add(new User("Maria", "Hristova", "maria", "maria123"));
-        user.add(new User("Maya", "Dimitrova", LocalDate.of(1984, 8,19),
+        List<Person> persons = new ArrayList<>();
+        persons.add(new User("John", "Smith", "john", "john123"));
+        persons.add(new User("Ivan", "Petrov", "ivan", "ivan123"));
+        persons.add(new User("Maria", "Hristova", "maria", "maria123"));
+        persons.add(new Person("Nedyalko", "Dimitrov", LocalDate.of(1979, 7,13)));
+        persons.add(new User("Maya", "Dimitrova", LocalDate.of(1984, 8,19),
                 "maya", "maya123", ADMIN, "maya@gmail.com"));
 //        user.forEach(System.out::println);
 
-        for(User u : user) {
-            System.out.println(u);
+        for(Person p : persons) {
+            System.out.println(p.toString());
         }
-        System.out.println("====================================");
-        for(int i = 0; i < user.size(); i++){
-            System.out.println(user.get(i));
-        }
+
     }
 }
