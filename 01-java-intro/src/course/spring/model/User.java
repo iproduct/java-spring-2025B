@@ -1,5 +1,7 @@
 package course.spring.model;
 
+import java.time.LocalDate;
+
 import static course.spring.model.Role.*;
 
 public class User extends Person {
@@ -16,6 +18,22 @@ public class User extends Person {
         super(firstName, lastName);
         this.username = username;
         this.password = password;
+    }
+
+    public User(String firstName, String lastName, LocalDate birthDate, String username, String password, Role role, String email) {
+        super(firstName, lastName, birthDate);
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.email = email;
+    }
+
+    public User(Long id, String firstName, String lastName, LocalDate birthDate, String username, String password, Role role, String email) {
+        super(id, firstName, lastName, birthDate);
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.email = email;
     }
 
     public String getUsername() {
