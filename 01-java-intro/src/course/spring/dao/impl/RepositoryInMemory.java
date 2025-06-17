@@ -1,14 +1,22 @@
 package course.spring.dao.impl;
 
+import course.spring.dao.IdGenerator;
 import course.spring.dao.Repository;
+import course.spring.model.Identifiable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class RepositoryInMemory<K,V> implements Repository<K,V> {
+public class RepositoryInMemory<K,V extends Identifiable<K>> implements Repository<K,V> {
     private Map<K,V> entities = new HashMap<>();
+    private IdGenerator<K> idGenerator;
+
+    public RepositoryInMemory(IdGenerator<K> idGenerator) {
+        this.idGenerator = idGenerator;
+    }
+
     @Override
     public List<V> findAll() {
         return List.copyOf(entities.values());
@@ -21,7 +29,9 @@ public class RepositoryInMemory<K,V> implements Repository<K,V> {
 
     @Override
     public V create(V entity) {
-        return null;
+        entity.setId(idGenerator.getNextId());
+        entities.put(entity.getId(), entity);
+        return entity;
     }
 
     @Override
