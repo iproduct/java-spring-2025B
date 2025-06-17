@@ -36,16 +36,19 @@ public class RepositoryInMemory<K,V extends Identifiable<K>> implements Reposito
 
     @Override
     public Optional<V> update(V entity) {
-        return Optional.empty();
+        var old = findById(entity.getId());
+        if(old.isEmpty()) return old;
+        entities.put(entity.getId(), entity);
+        return Optional.of(entity);
     }
 
     @Override
     public Optional<V> deleteById(K id) {
-        return Optional.empty();
+        return Optional.ofNullable(entities.remove(id));
     }
 
     @Override
     public long count() {
-        return 0;
+        return entities.size();
     }
 }
