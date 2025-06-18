@@ -5,16 +5,20 @@ import course.spring.model.MockBooks;
 import course.spring.model.Product;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class GenericsDemo {
-    public static <T extends Product> double claculateTotal(List<T> products) {
+    public static double claculateTotal(Collection<? extends Product> products) {
         var sum = 0D;
 //        var newp = new T(); // Type erasure
-        for(T p: products){
+        for(Product p: products){
             sum += p.getPrice();
         }
         return sum;
+    }
+    public static void addToCollection(Collection<? super Product> collection, Product p) {
+        collection.add(p);
     }
 
 
