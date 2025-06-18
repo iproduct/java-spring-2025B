@@ -7,23 +7,11 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class Book implements Identifiable<Long> {
-    private static Random random;
-    static {
-        random = new Random();
-        random.setSeed(System.nanoTime());
-    }
-    public static String getNextId() {
-        return UUID.randomUUID().toString();
-    }
-    private Long id;
-    private String title;
+public class Book extends Product {
     private String author;
     private int year;
     private String publisher;
-    private double price;
     private String description;
-    private Set<String> tags = Collections.emptySet();
 
     // Overloaded constructors
     // No args constructor
@@ -31,40 +19,23 @@ public class Book implements Identifiable<Long> {
     }
 
     public Book(long id) {
-        this.id = id;
+        super(id);
     }
 
     // Required args constructor
     public Book(String title, String author, int year, String publisher, double price) {
-        this.title = title;
+        super(title, price);
         this.author = author;
         this.year = year;
         this.publisher = publisher;
-        this.price = price;
-
     }
 
     public Book(String title, String author, int year, String publisher, double price,
                 String description, Set<String> tags) {
-        this(title, author, year, publisher, price);
-        this.description = description;
-        this.tags = tags;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+        super(title, price, description, tags);
+        this.author = author;
+        this.publisher = publisher;
+        this.year = year;
     }
 
     public String getAuthor() {
@@ -91,30 +62,13 @@ public class Book implements Identifiable<Long> {
         this.publisher = publisher;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public Set<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<String> tags) {
-        this.tags = tags;
-    }
-
+    @Override
     public String getDescription() {
         if(description == null){
-            description = "id=" + id +
-                    ", title='" + title + '\'' +
+            description = super.getDescription() +
                     ", author='" + author + '\'' +
                     ", publishingDate=" + year +
-                    ", publisher='" + publisher + '\'' +
-                    ", price=" + price;
+                    ", publisher='" + publisher + '\'';
         }
         return description;
     }
@@ -126,21 +80,21 @@ public class Book implements Identifiable<Long> {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Book{");
-        sb.append("id=").append(id);
-        sb.append(", title='").append(title).append('\'');
+        sb.append("id=").append(getId());
+        sb.append(", title='").append(getTitle()).append('\'');
         sb.append(", author='").append(author).append('\'');
         sb.append(", year=").append(year);
         sb.append(", publisher='").append(publisher).append('\'');
-        sb.append(", price=").append(price);
+        sb.append(", price=").append(getPrice());
         sb.append(", description='").append(description).append('\'');
-        sb.append(", tags=").append(tags);
+        sb.append(", tags=").append(getTags());
         sb.append('}');
         return sb.toString();
     }
 
     public String format() {
         return String.format("| %4d | %-20.20s | %-20.20s | %4d | %6.2f | %-20.20s |",
-                id, title, author, year, price, tags.stream().collect(Collectors.joining(", ")));
+                getId(), getTitle(), author, year, getPrice(), getTags().stream().collect(Collectors.joining(", ")));
     }
 
     @Override
