@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class Product implements Identifiable<Long> {
+public class Product implements Identifiable<Long>, Comparable<Product> {
     private static Random random;
     static {
         random = new Random();
@@ -122,4 +122,8 @@ public class Product implements Identifiable<Long> {
         return getId() != null ? getId().hashCode() : 0;
     }
 
+    @Override
+    public int compareTo(Product o) {
+        return getTitle().toLowerCase().compareTo(o.getTitle().toLowerCase());
+    }
 }
