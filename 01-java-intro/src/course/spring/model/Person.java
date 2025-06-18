@@ -1,9 +1,12 @@
 package course.spring.model;
 
+import course.spring.dao.Named;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Person implements Identifiable<Long> {
+public class Person implements Identifiable<Long>, Named, Serializable {
 //    private static Long nextId = 0L;
 //
 //    protected static Long getNextId() {
@@ -64,6 +67,11 @@ public class Person implements Identifiable<Long> {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public String getName() {
+        return getFirstName() + ' ' + getLastName();
     }
 
     @Override

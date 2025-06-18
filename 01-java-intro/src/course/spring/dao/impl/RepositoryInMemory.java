@@ -1,15 +1,17 @@
 package course.spring.dao.impl;
 
 import course.spring.dao.IdGenerator;
+import course.spring.dao.Named;
 import course.spring.dao.Repository;
 import course.spring.model.Identifiable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class RepositoryInMemory<K,V extends Identifiable<K>> implements Repository<K,V> {
+public class RepositoryInMemory<K,V extends Identifiable<K> & Named & Serializable> implements Repository<K,V> {
     private Map<K,V> entities = new HashMap<>();
     private IdGenerator<K> idGenerator;
 

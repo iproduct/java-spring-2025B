@@ -1,5 +1,7 @@
 package course.spring.model;
 
+import course.spring.dao.Named;
+
 import java.time.LocalDate;
 
 import static course.spring.model.Role.*;
