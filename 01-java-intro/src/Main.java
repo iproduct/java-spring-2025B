@@ -9,7 +9,9 @@ import course.spring.model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import static course.spring.model.Role.*;
 
@@ -25,7 +27,7 @@ public class Main {
 //        user.forEach(System.out::println);
 
         // Create UserRepository with LongIdGenerator
-        UserRepository userRepo = new UserRepositoryInMemory(new LongIdGenerator());
+        UserRepository userRepo = UserRepositoryInMemory.getInstance();
 
         for(User u : users) {
             userRepo.create(u);
@@ -38,5 +40,18 @@ public class Main {
         // Find user by username
         System.out.println(userRepo.findByUsername("maya"));
 
+        // Iterators
+        for(User u : allUsers) {
+            System.out.println(u);
+        }
+
+        System.out.println("==============================================");
+        ListIterator<User> it = allUsers.listIterator();
+        while(it.hasNext()) {
+            System.out.println(it.next());
+        }
+        while(it.hasPrevious()) {
+            System.out.println(it.previous());
+        }
     }
 }
