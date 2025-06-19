@@ -1,9 +1,6 @@
 package course.spring.io;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,7 +26,7 @@ public class FilesDemo03 {
         var charset = Charset.forName("utf8");
         try(
                 BufferedReader in = Files.newBufferedReader(source,charset);
-                PrintWriter out = new PrintWriter(Files.newBufferedWriter(dest,charset));
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(dest.toFile())));
         ) {
             String line = null;
             int n = 0;

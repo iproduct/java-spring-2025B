@@ -3,12 +3,14 @@ package course.spring.io;
 import course.spring.exceptions.CustomDatabaseException;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class ScannerDemo {
-    public String readDataFromFile(String filename) throws CustomDatabaseException {
+    public String readDataFromFile(String filename) throws CustomDatabaseException, IOException {
         StringBuilder sb = new StringBuilder();
-        try (Scanner s = new Scanner(new BufferedReader(new FileReader(filename)))) {
+        try (Scanner s = new Scanner(new BufferedReader(new InputStreamReader(
+                new FileInputStream(filename), StandardCharsets.UTF_8)))) {
             while (s.hasNext()) {
                 sb.append(s.nextLine()).append("\n");
             }
@@ -27,7 +29,7 @@ public class ScannerDemo {
 
 
     public static void main(String[] args) {
-        String filename = "./src/course/spring/io/ScannerDemo2.java";
+        String filename = "./src/course/spring/io/ScannerDemo.java";
         var demo = new ScannerDemo();
         String data = null;
         try {
@@ -35,6 +37,8 @@ public class ScannerDemo {
         } catch (CustomDatabaseException e) {
             System.out.printf("Catched in main: %s <- %s\n", e.getMessage(), e.getCause().getMessage());
 //            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         System.out.println(data);
         System.out.println("Demo complete.");
