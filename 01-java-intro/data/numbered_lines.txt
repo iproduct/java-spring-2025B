@@ -1,0 +1,26 @@
+1: package course.spring.io;
+2: 
+3: import java.io.IOException;
+4: import java.nio.charset.Charset;
+5: import java.nio.file.Files;
+6: import java.nio.file.Paths;
+7: import java.util.stream.IntStream;
+8: 
+9: class IntHolder {
+10:     public int i = 0;
+11: }
+12: 
+13: public class FilesDemo01 {
+14:     public static void main(String[] args) throws IOException {
+15:         var source = Paths.get("./src/course/spring/io", "FilesDemo01.java")
+16:                 .toAbsolutePath()
+17:                 .normalize();
+18:         System.out.printf("File '%s' exists: %b\n", source, Files.exists(source));
+19:         var charset = Charset.forName("utf8");
+20:         var lines = Files.lines(source, charset);
+21:         IntHolder n = new IntHolder();
+22:         lines.map(line -> ++n.i +  ": " + line).forEach(System.out::println);
+23:         IntStream.range(1, 10).forEach(System.out::println);
+24:     }
+25: 
+26: }
