@@ -37,6 +37,6 @@ public class DbInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-
+        USERS.forEach(userRepo::create);
     }
 }

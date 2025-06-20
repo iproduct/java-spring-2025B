@@ -3,9 +3,13 @@ package course.spring.web;
 import course.spring.dao.UserRepository;
 import course.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -18,5 +22,15 @@ public class UsersRestController {
     @GetMapping
     public List<User> getAllUsers() {
         return userRepo.findAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        var newUser = userRepo.create(user);
+        return ResponseEntity.created(
+                ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment("{id}")
+                        .buildAndExpand(newUser.getId()).toUri()
+        ).body(newUser);
     }
 }
