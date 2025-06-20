@@ -21,7 +21,7 @@ public class StreamDemo01 {
                 .forEach(d -> System.out.println(d));
         List<Book> books = Arrays.asList(MOCK_BOOKS);
 //        Collections.sort(books, (b1, b2) -> (int)(b1.getPrice() - b2.getPrice()));
-//        Collections.sort(books, Comparator.comparing(b -> b.getAuthor().toLowerCase()));
+        Collections.sort(books, Comparator.comparing(b -> b.getAuthor().toLowerCase()));
 //        books.sort(Comparator.comparing( Book::getAuthor));
         Comparator<Book> compareByYearTitlePrice = (b1, b2) -> {
             var compYear = b1.getYear() - b2.getYear();
