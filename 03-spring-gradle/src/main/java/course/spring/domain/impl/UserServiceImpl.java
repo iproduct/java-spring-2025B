@@ -45,9 +45,6 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
         log.info(String.format("!!!!! Bean '%s' created.", beanName));
         var repo = ctx.getBean(UserRepository.class);
         log.info("!!!!!!!!!!!!! User repository: " + repo.toString());
-        var userNames = repo.findAll().stream()
-                .map(User::getName).collect(Collectors.joining(", "));
-        log.info(String.format("!!!!! Users:", userNames));
     }
 
     @Override
