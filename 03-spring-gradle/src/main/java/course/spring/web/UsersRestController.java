@@ -1,16 +1,15 @@
 package course.spring.web;
 
 import course.spring.dao.UserRepository;
+import course.spring.dto.ErrorResponse;
+import course.spring.exception.InvalidEntityDataException;
 import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class UsersRestController {
     @GetMapping("{id}")
     public User getUserById(@PathVariable("id") Long id) {
         return userRepo.findById(id).orElseThrow(() -> new NonexistingEntityException(
-                String.format("User with ID='%' does not exist.", id)
+                String.format("User with ID='%s' does not exist.", id)
         ));
     }
 
@@ -50,5 +49,31 @@ public class UsersRestController {
                 ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment("{id}")
                         .buildAndExpand(newUser.getId()).toUri()
         ).body(newUser);
+    }
+
+    @PutMapping("{id}")
+    public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        if(!id.equals(user.getId())) {
+            new InvalidEntityDataException(
+                    String.format("Non-matching IDs in path '%s' and in request body '%s'.", id, user.getId())
+            );
+        }
+        return userRepo.update(user).orElseThrow(() -> new NonexistingEntityException(
+                String.format("Can not update non-existing user '%s' with ID='%d'", user.getUsername(), user.getId())
+        ));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleEntityNotFound(NonexistingEntityException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
+    }
+
+   @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleInvalidRequetData(InvalidEntityDataException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getViolations()));
     }
 }
