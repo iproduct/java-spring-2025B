@@ -1,6 +1,7 @@
 package course.spring.web;
 
 import course.spring.dao.UserRepository;
+import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -22,6 +23,23 @@ public class UsersRestController {
     @GetMapping
     public List<User> getAllUsers() {
         return userRepo.findAll();
+    }
+
+//    @GetMapping("{id}")
+//    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+//        var result = userRepo.findById(id);
+//        if(result.isPresent()) {
+//            return ResponseEntity.ok(userRepo.findById(id).get());
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
+    @GetMapping("{id}")
+    public User getUserById(@PathVariable("id") Long id) {
+        return userRepo.findById(id).orElseThrow(() -> new NonexistingEntityException(
+                String.format("User with ID='%' does not exist.", id)
+        ));
     }
 
     @PostMapping
