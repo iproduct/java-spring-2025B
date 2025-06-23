@@ -4,18 +4,32 @@ import course.spring.dao.UserRepository;
 import course.spring.domain.UserService;
 import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, BeanNameAware, ApplicationContextAware {
     private UserRepository userRepo;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepo) {
         this.userRepo = userRepo;
+    }
+
+    @Override
+    public void setBeanName(String name) {
+
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
     }
 
     @Override
@@ -60,4 +74,5 @@ public class UserServiceImpl implements UserService {
     public long getUsersCount() {
         return userRepo.count();
     }
+
 }
