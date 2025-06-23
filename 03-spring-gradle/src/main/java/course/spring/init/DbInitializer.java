@@ -1,18 +1,26 @@
 package course.spring.init;
 
 import course.spring.dao.UserRepository;
+import course.spring.domain.UserService;
 import course.spring.model.Role;
 import course.spring.model.User;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
+@Log
 public class DbInitializer implements ApplicationRunner {
+    @Autowired
+    private ApplicationContext ctx;
+
     private static final List<User> USERS = List.of(
             new User("Ivan", "Petrov", LocalDate.of(1978, 5, 17),
                     "ivan", "ivan123", Role.READER, "ivan@gmail.com"),
@@ -38,5 +46,10 @@ public class DbInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         USERS.forEach(userRepo::create);
+        // Lookup or Service Locator design patterns
+        var userService = ctx.getBean(UserService.class);
+        var userNames = userService.getAllUsers().stream()
+                .map(User::getName).collect(Collectors.joining(", "));
+        log.info("!!!!!! User names: " + userNames);
     }
 }
