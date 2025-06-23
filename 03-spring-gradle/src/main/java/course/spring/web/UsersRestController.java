@@ -54,7 +54,7 @@ public class UsersRestController {
     @PutMapping("{id}")
     public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
         if(!id.equals(user.getId())) {
-            new InvalidEntityDataException(
+            throw new InvalidEntityDataException(
                     String.format("Non-matching IDs in path '%s' and in request body '%s'.", id, user.getId())
             );
         }
