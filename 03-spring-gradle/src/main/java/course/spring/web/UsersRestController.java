@@ -63,6 +63,13 @@ public class UsersRestController {
         ));
     }
 
+    @DeleteMapping("{id}")
+    public User updateUser(@PathVariable("id") Long id) {
+        return userRepo.deleteById(id).orElseThrow(() -> new NonexistingEntityException(
+                String.format("Can not delete non-existing user with ID='%d'", id)
+        ));
+    }
+
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleEntityNotFound(NonexistingEntityException ex) {
         return ResponseEntity
