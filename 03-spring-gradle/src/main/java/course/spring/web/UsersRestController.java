@@ -1,6 +1,7 @@
 package course.spring.web;
 
 import course.spring.dao.UserRepository;
+import course.spring.domain.UserService;
 import course.spring.dto.ErrorResponse;
 import course.spring.exception.InvalidEntityDataException;
 import course.spring.exception.NonexistingEntityException;
@@ -17,11 +18,11 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UsersRestController {
     @Autowired
-    private UserRepository userRepo;
+    private UserService userService;
 
     @GetMapping
     public List<User> getAllUsers() {
-        return userRepo.findAll();
+        return userService.getAllUsers();
     }
 
 //    @GetMapping("{id}")
@@ -36,15 +37,13 @@ public class UsersRestController {
 
     @GetMapping("{id}")
     public User getUserById(@PathVariable("id") Long id) {
-        return userRepo.findById(id).orElseThrow(() -> new NonexistingEntityException(
-                String.format("User with ID='%s' does not exist.", id)
-        ));
+        return userService.getUserById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> addUser(@RequestBody User user) {
-        var newUser = userRepo.create(user);
+        var newUser = userService.addUser(user);
         return ResponseEntity.created(
                 ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment("{id}")
                         .buildAndExpand(newUser.getId()).toUri()
@@ -58,16 +57,12 @@ public class UsersRestController {
                     String.format("Non-matching IDs in path '%s' and in request body '%s'.", id, user.getId())
             );
         }
-        return userRepo.update(user).orElseThrow(() -> new NonexistingEntityException(
-                String.format("Can not update non-existing user '%s' with ID='%d'", user.getUsername(), user.getId())
-        ));
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("{id}")
     public User updateUser(@PathVariable("id") Long id) {
-        return userRepo.deleteById(id).orElseThrow(() -> new NonexistingEntityException(
-                String.format("Can not delete non-existing user with ID='%d'", id)
-        ));
+        return userService.deleteUserById(id);
     }
 
     @ExceptionHandler
