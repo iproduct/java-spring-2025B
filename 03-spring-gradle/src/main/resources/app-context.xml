@@ -31,5 +31,5 @@
     <!--        </property>-->
     <!--    </bean>-->
         <bean id="defaultUserService" class="course.spring.domain.impl.UserServiceImpl"
-               c:userRepo-ref="userRepossitoryInMemory" />
+               factory-method="ceateUserService" c:userRepo-ref="userRepossitoryInMemory" />
 </beans>

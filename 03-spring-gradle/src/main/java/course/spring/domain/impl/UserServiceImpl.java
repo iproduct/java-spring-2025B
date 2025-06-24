@@ -24,7 +24,9 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     private String beanName;
     private ApplicationContext ctx;
 
-
+    public static UserService ceateUserService(UserRepository userRepo) {
+        return new UserServiceImpl(userRepo);
+    };
 
 //    @Autowired
     public UserServiceImpl(UserRepository userRepo) {
