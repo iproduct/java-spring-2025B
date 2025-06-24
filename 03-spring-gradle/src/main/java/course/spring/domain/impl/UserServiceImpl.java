@@ -17,14 +17,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 @Log
 public class UserServiceImpl implements UserService, BeanNameAware, ApplicationContextAware {
     private UserRepository userRepo;
     private String beanName;
     private ApplicationContext ctx;
 
-    @Autowired
+
+
+//    @Autowired
     public UserServiceImpl(UserRepository userRepo) {
         this.userRepo = userRepo;
     }
