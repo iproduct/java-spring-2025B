@@ -13,15 +13,15 @@
     <context:component-scan base-package="course.spring"/>
 
     <bean id="idGenerator" name="longIdGen" scope="prototype" class="course.spring.dao.impl.LongIdGenerator"
-              p:initialValue="200" />
-<!--            <property name="initialValue" value="100" />-->
-<!--        </bean>-->
+          p:initialValue="200"/>
+    <!--            <property name="initialValue" value="100" />-->
+    <!--        </bean>-->
 
-    <!--    <bean id="repoFactoryInMemory" class="course.spring.dao.impl.RepoFactoryInMemory" />-->
+    <bean id="repoFactoryInMemory" class="course.spring.dao.impl.RepoFactoryInMemory" />
     <bean id="userRepo" name="userRepossitoryInMemory" class="course.spring.dao.impl.UserRepositoryInMemory"
-          c:idGenerator-ref="longIdGen" />
-<!--        <constructor-arg name="idGenerator" index="0" type="course.spring.dao.IdGenerator" ref="longIdGen" />-->
-<!--    </bean>-->
+         factory-bean="repoFactoryInMemory"  factory-method="createUserRepository" c:idGenerator-ref="longIdGen" />
+    <!--        <constructor-arg name="idGenerator" index="0" type="course.spring.dao.IdGenerator" ref="longIdGen" />-->
+    <!--    </bean>-->
     <!--          factory-bean="repoFactoryInMemory" factory-method="createUserRepo" c:idGenerator-ref="longIdGen" />-->
     <!--        <constructor-arg name="idGenerator" index="0" type="course.spring.dao.IdGenerator" ref="idGenerator">-->
     <!--            <ref bean="idGenerator"></ref>-->
@@ -30,6 +30,6 @@
     <!--            <ref bean="provider"></ref>-->
     <!--        </property>-->
     <!--    </bean>-->
-        <bean id="defaultUserService" class="course.spring.domain.impl.UserServiceImpl"
-               factory-method="ceateUserService" c:userRepo-ref="userRepossitoryInMemory" />
+    <bean id="defaultUserService" class="course.spring.domain.impl.UserServiceImpl"
+          factory-method="ceateUserService" c:userRepo-ref="userRepossitoryInMemory"/>
 </beans>
