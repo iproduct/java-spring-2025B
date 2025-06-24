@@ -3,13 +3,17 @@ package course.spring.dao.impl;
 import course.spring.dao.UserRepository;
 import course.spring.model.Role;
 import course.spring.model.User;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 @Repository("mockUserRepo")
+@Qualifier("MOCK")
 public class UserRepositoryMockImpl implements UserRepository {
     private List<User> users = List.of(
             new User(1L, "User", "One", LocalDate.now(), "user1", "user1", Role.READER, "user1@gmail.com"),

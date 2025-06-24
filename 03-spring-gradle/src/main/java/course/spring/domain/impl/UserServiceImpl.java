@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     @PostConstruct
     public void afterInit() throws Exception {
         log.info(String.format("!!!!! Bean '%s' created.", beanName));
-        var repo = ctx.getBean(UserRepository.class);
-        log.info("!!!!!!!!!!!!! User repository: " + repo.toString());
+//        var repo = ctx.getBean(UserRepository.class);
+//        log.info("!!!!!!!!!!!!! User repository: " + repo.toString());
     }
 
     @Override
