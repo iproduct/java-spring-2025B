@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        <context:annotation-config></context:annotation-config>
+        <context:component-scan base-package="course.spring" />
+
+<!--    <bean id="idGenerator" name="longIdGen" scope="prototype" class="course.spring.dao.impl.LongIdGenerator"-->
+<!--          p:initialValue="100" />-->
+<!--        <property name="initialValue" value="1000">-->
+<!--            <value>1000</value>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    <bean id="repoFactoryInMemory" class="course.spring.dao.impl.RepoFactoryInMemory" />-->
+<!--    <bean id="userRepo" name="userRepossitoryInMemory" class="course.spring.dao.impl.UserRepositoryInMemory"-->
+<!--          factory-bean="repoFactoryInMemory" factory-method="createUserRepo" c:idGenerator-ref="longIdGen" />-->
+    <!--        <constructor-arg name="idGenerator" index="0" type="course.spring.dao.IdGenerator" ref="idGenerator">-->
+    <!--            <ref bean="idGenerator"></ref>-->
+    <!--        </constructor-arg>-->
+    <!--        <property name="provider" ref="provider">-->
+    <!--            <ref bean="provider"></ref>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+<!--    <bean id="defaultUserService" class="course.spring.domain.impl.UserServiceImpl"-->
+<!--          factory-method="createUserService" c:userRepository-ref="userRepo"/>-->
+
+    <!--    <bean id="presenter" class="coredemo.domain.ConsoleArticlePresenter"
+                factory-bean="presenterFactory" factory-method="createPresenter" c:prov-ref="provider" >-->
+    <!--        <constructor-arg name="provider" index="0" type="coredemo.domain.ArticleProvider" ref="provider">-->
+    <!--            <ref bean="provider"></ref>-->
+    <!--        </constructor-arg>-->
+    <!--    </bean>-->
+</beans>
