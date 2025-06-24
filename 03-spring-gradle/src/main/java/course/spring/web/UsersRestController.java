@@ -35,7 +35,12 @@ public class UsersRestController {
 //        }
 //    }
 
-    @GetMapping("{id}")
+    @GetMapping("count")
+    public long getUsersCount() {
+        return userService.getUsersCount();
+    }
+
+    @GetMapping("{id:\\d+}")
     public User getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id);
     }

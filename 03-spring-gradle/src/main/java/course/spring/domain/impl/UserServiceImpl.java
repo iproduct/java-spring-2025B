@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
         ctx = applicationContext;
     }
 
-
     @PostConstruct
     public void afterInit() throws Exception {
         log.info(String.format("!!!!! Bean '%s' created.", beanName));
