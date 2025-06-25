@@ -1,6 +1,7 @@
 package course.spring.domain.impl;
 
 import course.spring.dao.UserRepository;
+import course.spring.dao.UserRepositoryJpa;
 import course.spring.domain.UserService;
 import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
@@ -20,16 +21,17 @@ import java.util.stream.Collectors;
 @Service
 @Log
 public class UserServiceImpl implements UserService, BeanNameAware, ApplicationContextAware {
-    private UserRepository userRepo;
+    private UserRepositoryJpa userRepo;
     private String beanName;
     private ApplicationContext ctx;
 
-    public static UserService ceateUserService(UserRepository userRepo) {
+    @Autowired
+    public static UserService createUserService(UserRepositoryJpa userRepo) {
         return new UserServiceImpl(userRepo);
     };
 
-//    @Autowired
-    public UserServiceImpl(UserRepository userRepo) {
+    @Autowired
+    public UserServiceImpl(UserRepositoryJpa userRepo) {
         this.userRepo = userRepo;
     }
 
@@ -71,21 +73,20 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
 
     @Override
     public User addUser(User user) {
-        return userRepo.create(user);
+        return userRepo.save(user);
     }
 
     @Override
     public User updateUser(User user) {
-        return userRepo.update(user).orElseThrow(() -> new NonexistingEntityException(
-                String.format("Can not update non-existing user '%s' with ID='%d'", user.getUsername(), user.getId())
-        ));
+        getUserById(user.getId());
+        return userRepo.save(user);
     }
 
     @Override
     public User deleteUserById(Long id) {
-        return userRepo.deleteById(id).orElseThrow(() -> new NonexistingEntityException(
-                String.format("Can not delete non-existing user with ID='%d'", id)
-        ));
+        var old = getUserById(id);
+        userRepo.deleteById(id);
+        return old;
     }
 
     @Override
