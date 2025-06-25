@@ -46,7 +46,9 @@ public class DbInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        USERS.forEach(userService::addUser);
+        if(userService.getUsersCount() == 0) {
+            USERS.forEach(userService::addUser);
+        }
         // Lookup or Service Locator design patterns
         var userService = ctx.getBean(UserService.class);
         var userNames = userService.getAllUsers().stream()
