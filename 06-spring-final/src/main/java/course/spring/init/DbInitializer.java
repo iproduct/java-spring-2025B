@@ -1,6 +1,6 @@
 package course.spring.init;
 
-import course.spring.dao.UserRepository;
+import course.spring.dao.UserRepositoryJpa;
 import course.spring.domain.UserService;
 import course.spring.model.Role;
 import course.spring.model.User;
@@ -42,11 +42,11 @@ public class DbInitializer implements ApplicationRunner {
     );
 
     @Autowired
-    private UserRepository userRepo;
+    private UserService userService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        USERS.forEach(userRepo::create);
+        USERS.forEach(userService::addUser);
         // Lookup or Service Locator design patterns
         var userService = ctx.getBean(UserService.class);
         var userNames = userService.getAllUsers().stream()

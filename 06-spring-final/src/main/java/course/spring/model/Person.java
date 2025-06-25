@@ -1,6 +1,6 @@
 package course.spring.model;
 
-import course.spring.dao.Named;
+import com.fasterxml.jackson.databind.util.Named;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;

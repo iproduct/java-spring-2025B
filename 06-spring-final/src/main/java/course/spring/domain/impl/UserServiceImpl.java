@@ -1,6 +1,5 @@
 package course.spring.domain.impl;
 
-import course.spring.dao.UserRepository;
 import course.spring.dao.UserRepositoryJpa;
 import course.spring.domain.UserService;
 import course.spring.exception.NonexistingEntityException;
