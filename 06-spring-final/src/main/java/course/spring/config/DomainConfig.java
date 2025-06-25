@@ -1,5 +1,6 @@
 package course.spring.config;
 
+import course.spring.Application;
 import course.spring.dao.IdGenerator;
 import course.spring.dao.UserRepository;
 import course.spring.dao.impl.LongIdGenerator;
@@ -11,6 +12,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 
 //@Configuration
 @PropertySource("classpath:domain.properties")
+@ComponentScan(basePackageClasses = Application.class)
 @Log
 public class DomainConfig {
     @Value("${idgen.initialValue}")
