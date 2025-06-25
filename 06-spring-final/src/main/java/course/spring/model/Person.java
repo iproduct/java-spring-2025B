@@ -1,11 +1,16 @@
 package course.spring.model;
 
 import course.spring.dao.Named;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@MappedSuperclass
 public class Person implements Identifiable<Long>, Named, Serializable {
 //    private static Long nextId = 0L;
 //
@@ -13,6 +18,8 @@ public class Person implements Identifiable<Long>, Named, Serializable {
 //        return ++nextId;
 //    }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;

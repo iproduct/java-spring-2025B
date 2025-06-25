@@ -1,9 +1,12 @@
 package course.spring.model;
 
+import jakarta.persistence.Entity;
+
 import java.time.LocalDate;
 
 import static course.spring.model.Role.READER;
 
+@Entity
 public class User extends Person {
     private String username;
     private String password;
