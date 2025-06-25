@@ -3,6 +3,8 @@ package course.spring.dao;
 import course.spring.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepositoryJpa extends JpaRepository<User, Long> {
+import java.util.Optional;
 
+public interface UserRepositoryJpa extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
 }
