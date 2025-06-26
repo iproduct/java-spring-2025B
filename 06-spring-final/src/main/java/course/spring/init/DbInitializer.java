@@ -26,21 +26,21 @@ public class DbInitializer implements ApplicationRunner {
     private ApplicationContext ctx;
 
     private static final List<User> USERS = List.of(
-            new User("Ivan", "Petrov", LocalDate.of(1978, 5, 17),
+            new User(1L, "Dimitar", "Petrov", LocalDate.of(1978, 5, 17),
                     "ivan", "ivan123", Role.READER, "ivan@gmail.com"),
-            new User("John", "Smith", LocalDate.of(1982, 7, 3),
+            new User(2L, "John", "Smith", LocalDate.of(1982, 7, 3),
                     "sjohn", "john123", Role.AUTHOR, "john@gmail.com"),
-            new User("Mary", "Smith", LocalDate.of(1985, 4, 21),
+            new User(3L, "Mary", "Smith", LocalDate.of(1985, 4, 21),
                     "mary", "mary123", Role.ADMIN, "mary@yahoo.com"),
-            new User("Zornica", "Dimitrova", LocalDate.of(1987, 4, 17),
+            new User(4L, "Zornica", "Dimitrova", LocalDate.of(1987, 4, 17),
                     "moni", "mary123", Role.READER, "mony@yahoo.com"),
-            new User("Dimitar", "Dimitrov", LocalDate.of(1987, 4, 17),
+            new User(5L, "Dimitar", "Dimitrov", LocalDate.of(1987, 4, 17),
                     "moni", "mary123", Role.AUTHOR, "mony@yahoo.com"),
-            new User("Monica", "Dimitrova", LocalDate.of(1987, 4, 17),
+            new User(6L, "Monica", "Dimitrova", LocalDate.of(1987, 4, 17),
                     "moni", "mary123", Role.ADMIN, "mony@yahoo.com"),
-            new User("Maya", "Smith", LocalDate.of(1984, 8, 8),
+            new User(7L, "Maya", "Smith", LocalDate.of(1984, 8, 8),
                     "maya", "mary123", Role.READER, "maya@yahoo.com"),
-            new User("Maya", "Hristova", LocalDate.of(1987, 7, 29),
+            new User(8L, "Maya", "Hristova", LocalDate.of(1987, 7, 29),
                     "maya2", "mary123", Role.READER, "mayah@yahoo.com")
     );
 
@@ -91,13 +91,13 @@ public class DbInitializer implements ApplicationRunner {
         var categories = categoryService.getAllCategories();
 
         // sample articles
-        if(articleService.getArticlesCount() == 0) {
+//        if(articleService.getArticlesCount() == 0) {
             ARTICLES.forEach(article -> {
-                article.setAuthor(users.getFirst());
+                article.setAuthor(USERS.get(0));
                 article.setEditor(users.getLast());
                 articleService.addArticle(article);
             });
-        }
+//        }
 
     }
 }

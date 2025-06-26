@@ -24,7 +24,7 @@ public class Article {
     private LocalDateTime publishDate =  LocalDateTime.now();
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> tags = Collections.emptySet();
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER )
     private Set<Category> categories = Collections.emptySet();
 
     public Article() {

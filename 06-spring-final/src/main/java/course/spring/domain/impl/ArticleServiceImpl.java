@@ -100,7 +100,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article deleteArticleById(Long id) {
-        return null;
+        var old = getArticleById(id);
+        old.getAuthor().getArticlesAuthored().remove(old);
+        old.getEditor().getArticlesEdited().remove(old);
+        articleRepository.deleteById(id);
+        return old;
     }
 
     @Override
