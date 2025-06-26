@@ -91,13 +91,13 @@ public class DbInitializer implements ApplicationRunner {
         var categories = categoryService.getAllCategories();
 
         // sample articles
-//        if(articleService.getArticlesCount() == 0) {
+        if(articleService.getArticlesCount() == 0) {
             ARTICLES.forEach(article -> {
                 article.setAuthor(USERS.get(0));
                 article.setEditor(users.getLast());
                 articleService.addArticle(article);
             });
-//        }
+        }
 
     }
 }
