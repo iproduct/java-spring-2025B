@@ -9,7 +9,7 @@ Spring Web Services - REST Services & HATEOAS - https://iproduct.org/wp-content/
 
 Spring Web Services - Spring MVC - https://iproduct.org/wp-content/uploads/2025/06/Spring_2025_3_2.pdf
 
-Spring Data JPA - https://iproduct.org/wp-content/uploads/2025/06/Spring_2025_5_Spring_Data_JPA_Hibernate.pdf
+Spring Data JPA - https://iproduct.org/wp-content/uploads/2025/06/Spring_2024_5_Spring_Data_JPA_Hibernate.pdf
 
 
 -----
