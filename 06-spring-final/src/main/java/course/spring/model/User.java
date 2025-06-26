@@ -1,8 +1,11 @@
 package course.spring.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 import static course.spring.model.Role.READER;
 
@@ -12,6 +15,10 @@ public class User extends Person {
     private String password;
     private Role role = READER;
     private String email;
+    @OneToMany(mappedBy = "author")
+    private List<Article> articlesAuthored = Collections.emptyList();
+    @OneToMany(mappedBy = "editor")
+    private List<Article> articlesEdited = Collections.emptyList();;
 
     public User() {
         super();
