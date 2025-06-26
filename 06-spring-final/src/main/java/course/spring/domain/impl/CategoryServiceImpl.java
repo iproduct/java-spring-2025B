@@ -2,6 +2,7 @@ package course.spring.domain.impl;
 
 import course.spring.dao.CategoryRepository;
 import course.spring.domain.CategoryService;
+import course.spring.exception.NonexistingEntityException;
 import course.spring.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,37 +19,44 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategorys() {
-        return List.of();
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category getCategoryById(Long id) {
-        return null;
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new NonexistingEntityException(
+                    String.format("Category with ID='%s' does not exist.", id)
+        ));
     }
 
     @Override
-    public Category getCategoryByName(String name) {
-        return null;
+    public List<Category> getCategoriesByName(String name) {
+        return categoryRepository.findByNameContaining(name);
     }
 
     @Override
     public Category addCategory(Category category) {
-        return null;
+        category.setId(null);
+        return categoryRepository.save(category);
     }
 
     @Override
     public Category updateCategory(Category category) {
-        return null;
+        getCategoryById(category.getId());
+        return categoryRepository.save(category);
     }
 
     @Override
     public Category deleteCategoryById(Long id) {
-        return null;
+        var old = getCategoryById(id);
+        categoryRepository.deleteById(id);
+        return old;
     }
 
     @Override
-    public long getCategorysCount() {
-        return 0;
+    public long getCategoriesCount() {
+        return categoryRepository.count();
     }
 }
