@@ -78,6 +78,22 @@ public class User extends Person {
         this.email = email;
     }
 
+    public List<Article> getArticlesAuthored() {
+        return articlesAuthored;
+    }
+
+    public void setArticlesAuthored(List<Article> articlesAuthored) {
+        this.articlesAuthored = articlesAuthored;
+    }
+
+    public List<Article> getArticlesEdited() {
+        return articlesEdited;
+    }
+
+    public void setArticlesEdited(List<Article> articlesEdited) {
+        this.articlesEdited = articlesEdited;
+    }
+
     @Override
     public String toString() {
         return "User{" +

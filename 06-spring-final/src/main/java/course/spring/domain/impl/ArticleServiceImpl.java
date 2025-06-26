@@ -72,7 +72,9 @@ public class ArticleServiceImpl implements ArticleService {
                 ));
         article.setId(null);
         article.setAuthor(author);
+        author.getArticlesAuthored().add(article);
         article.setEditor(editor);
+        editor.getArticlesEdited().add(article);
 
         // manage categories
         if (article.getCategories() == null ||
@@ -104,6 +106,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(readOnly = true)
     public long getArticlesCount() {
-        return 0;
+        return articleRepository.count();
     }
 }
