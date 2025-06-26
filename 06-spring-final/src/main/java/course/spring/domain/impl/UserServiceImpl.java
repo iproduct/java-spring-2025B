@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @Log
 public class UserServiceImpl implements UserService, BeanNameAware, ApplicationContextAware {
     private UserRepository userRepo;
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
@@ -62,6 +65,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUserByUsername(String username) {
         return userRepo.findByUsername(username).orElseThrow(() -> new NonexistingEntityException(
                 String.format("User with username '%s' does not exist.", username)
@@ -87,6 +91,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     }
 
     @Override
+    @Transactional(readOnly = true)
     public long getUsersCount() {
         return userRepo.count();
     }
