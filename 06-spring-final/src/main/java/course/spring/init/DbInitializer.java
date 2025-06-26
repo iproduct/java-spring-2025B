@@ -1,12 +1,10 @@
 package course.spring.init;
 
-import course.spring.dao.UserRepositoryJpa;
 import course.spring.domain.UserService;
 import course.spring.model.Role;
 import course.spring.model.User;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
