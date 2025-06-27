@@ -3,6 +3,7 @@ package course.spring.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.util.Named;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,7 +22,9 @@ public class Person implements Identifiable<Long>, Named, Serializable {
 //    @GeneratedValue(generator = "userSeq" , strategy = GenerationType.SEQUENCE)
 //    @SequenceGenerator(name="userSeq", allocationSize = 1)
     private Long id;
+    @Size(min = 2, max = 30)
     private String firstName;
+    @Size(min = 2, max = 30)
     private String lastName;
     @JsonFormat(pattern = "dd.MM.YYYY")
     private LocalDate birthDate = LocalDate.now();

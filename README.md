@@ -21,3 +21,4 @@ Spring Data method DSL - https://docs.spring.io/spring-data/jpa/reference/jpa/qu
 ### Additional Resources
 Column ordering strategies in Hibernate - https://robertniestroj.hashnode.dev/ordering-columns-in-a-table-in-jpahibernate
 Show Hibernate/JPA SQL Statements from Spring Boot - https://www.baeldung.com/sql-logging-spring-boot
+Hibernate validator constraints - https://docs.jboss.org/hibernate/stable/validator/api/org/hibernate/validator/constraints/package-summary.html
