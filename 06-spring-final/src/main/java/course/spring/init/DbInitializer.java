@@ -27,21 +27,21 @@ public class DbInitializer implements ApplicationRunner {
 
     private static final List<User> USERS = List.of(
             new User(1L, "Dimitar", "Petrov", LocalDate.of(1978, 5, 17),
-                    "ivan", "ivan123", Role.READER, "ivan@gmail.com"),
+                    "ivan", "Ivan123", Role.READER, "ivan@gmail.com"),
             new User(2L, "John", "Smith", LocalDate.of(1982, 7, 3),
-                    "sjohn", "john123", Role.AUTHOR, "john@gmail.com"),
+                    "sjohn", "John123", Role.AUTHOR, "john@gmail.com"),
             new User(3L, "Mary", "Smith", LocalDate.of(1985, 4, 21),
-                    "mary", "mary123", Role.ADMIN, "mary@yahoo.com"),
+                    "mary", "Mary123", Role.ADMIN, "mary@yahoo.com"),
             new User(4L, "Zornica", "Dimitrova", LocalDate.of(1987, 4, 17),
-                    "moni", "mary123", Role.READER, "mony@yahoo.com"),
+                    "moni", "Mary123", Role.READER, "mony@yahoo.com"),
             new User(5L, "Dimitar", "Dimitrov", LocalDate.of(1987, 4, 17),
-                    "moni2", "mary123", Role.AUTHOR, "mony2@yahoo.com"),
+                    "moni2", "Mary123", Role.AUTHOR, "mony2@yahoo.com"),
             new User(6L, "Monica", "Dimitrova", LocalDate.of(1987, 4, 17),
-                    "moni3", "mary123", Role.ADMIN, "mony3@yahoo.com"),
+                    "moni3", "Mary123", Role.ADMIN, "mony3@yahoo.com"),
             new User(7L, "Maya", "Smith", LocalDate.of(1984, 8, 8),
-                    "maya", "mary123", Role.READER, "maya@yahoo.com"),
+                    "maya", "Mary123", Role.READER, "maya@yahoo.com"),
             new User(8L, "Maya", "Hristova", LocalDate.of(1987, 7, 29),
-                    "maya2", "mary123", Role.READER, "mayah@yahoo.com")
+                    "maya2", "Mary123", Role.READER, "mayah@yahoo.com")
     );
 
     private static final List<Category> CATEGORIES = List.of(

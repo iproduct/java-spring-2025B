@@ -5,13 +5,18 @@ import course.spring.dto.ErrorResponse;
 import course.spring.exception.InvalidEntityDataException;
 import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
+import course.spring.utils.ErrorHandlingUtils;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+
+import static course.spring.utils.ErrorHandlingUtils.handleValidationErrors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -46,7 +51,9 @@ public class UsersRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user, Errors errors) {
+        handleValidationErrors(errors);
+
         var newUser = userService.addUser(user);
         return ResponseEntity.created(
                 ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment("{id}")

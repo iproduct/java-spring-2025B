@@ -30,7 +30,8 @@ public class User extends Person {
     @Size(min = 2, max = 30)
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$",
+            message = "Password be at least 8 characters and should contain at least one character, one digit and one non-character symbol.")
     private String password;
     private Role role = READER;
     @Basic(optional = false)
@@ -42,7 +43,7 @@ public class User extends Person {
     private List<Article> articlesAuthored = new ArrayList<>();
     @OneToMany(mappedBy = "editor")
     @JsonIgnore
-    private List<Article> articlesEdited = new ArrayList<>();;
+    private List<Article> articlesEdited = new ArrayList<>();
 
     public User() {
         super();
