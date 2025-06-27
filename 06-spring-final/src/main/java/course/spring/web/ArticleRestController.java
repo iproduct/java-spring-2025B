@@ -1,6 +1,8 @@
 package course.spring.web;
 
 import course.spring.domain.ArticleService;
+import course.spring.dto.ArticleDetailDto;
+import course.spring.dto.mapper.ArticleDtoMapper;
 import course.spring.exception.InvalidEntityDataException;
 import course.spring.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static course.spring.dto.mapper.ArticleDtoMapper.mapArticleToArticleDetailDto;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -18,8 +23,10 @@ public class ArticleRestController {
     private ArticleService articleService;
 
     @GetMapping
-    public List<Article> getAllArticles() {
-        return articleService.getAllArticles();
+    public List<ArticleDetailDto> getAllArticles() {
+        return articleService.getAllArticles().stream()
+                .map(article -> mapArticleToArticleDetailDto(article))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("count")
@@ -28,8 +35,8 @@ public class ArticleRestController {
     }
 
     @GetMapping("{id:\\d+}")
-    public Article getArticleById(@PathVariable("id") Long id) {
-        return articleService.getArticleById(id);
+    public ArticleDetailDto getArticleById(@PathVariable("id") Long id) {
+        return mapArticleToArticleDetailDto(articleService.getArticleById(id));
     }
 
     @PostMapping

@@ -95,7 +95,25 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article updateArticle(Article article) {
-        return null;
+        // get old article data
+        var oldArticle = getArticleById(article.getId());
+        if (!oldArticle.getAuthor().equals(article.getAuthor())) {
+            throw new InvalidEntityDataException(
+                String.format("Author can not be changed.")
+            );
+        }
+        if (article.getEditor() == null || article.getEditor().getId() == null) {
+            throw new InvalidEntityDataException(
+                    String.format("Author with valid User ID is required.")
+            );
+        }
+        var editor = userRepository.findById(article.getEditor().getId())
+                .orElseThrow(() -> new InvalidEntityDataException(
+                        String.format("Editor with User ID='%s' does not exist.", article.getEditor().getId())
+                ));
+        article.setEditor(editor);
+
+        return articleRepository.save(article);
     }
 
     @Override

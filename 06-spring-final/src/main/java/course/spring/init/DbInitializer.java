@@ -77,13 +77,7 @@ public class DbInitializer implements ApplicationRunner {
         if(userService.getUsersCount() == 0) {
             USERS.forEach(userService::addUser);
         }
-        // Lookup or Service Locator design patterns
-        var userService = ctx.getBean(UserService.class);
         var users = userService.getAllUsers();
-        var userNames = users.stream()
-                .map(User::getName).collect(Collectors.joining(", "));
-        log.info("!!!!!! User names: " + userNames);
-
         // sample categories
         if(categoryService.getCategoriesCount() == 0) {
             CATEGORIES.forEach(categoryService::addCategory);
@@ -93,8 +87,10 @@ public class DbInitializer implements ApplicationRunner {
         // sample articles
         if(articleService.getArticlesCount() == 0) {
             ARTICLES.forEach(article -> {
-                article.setAuthor(USERS.get(0));
+                article.setAuthor(users.getFirst());
                 article.setEditor(users.getLast());
+                article.getCategories().add(categories.get(0));
+                article.getCategories().add(categories.get(1));
                 articleService.addArticle(article);
             });
         }

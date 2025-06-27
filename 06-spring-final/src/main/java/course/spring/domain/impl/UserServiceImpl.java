@@ -74,6 +74,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
 
     @Override
     public User addUser(User user) {
+        user.setId(null);
         return userRepo.save(user);
     }
 

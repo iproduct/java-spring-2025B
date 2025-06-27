@@ -1,5 +1,6 @@
 package course.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.util.Named;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Person implements Identifiable<Long>, Named, Serializable {
     private Long id;
     private String firstName;
     private String lastName;
+    @JsonFormat(pattern = "dd.MM.YYYY")
     private LocalDate birthDate = LocalDate.now();
 
     public Person() {

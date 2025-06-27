@@ -1,10 +1,12 @@
 package course.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,15 +15,16 @@ import static course.spring.model.Role.READER;
 @Entity
 public class User extends Person {
     private String username;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private Role role = READER;
     private String email;
     @OneToMany(mappedBy = "author")
     @JsonIgnore
-    private List<Article> articlesAuthored = Collections.emptyList();
+    private List<Article> articlesAuthored = new ArrayList<>();
     @OneToMany(mappedBy = "editor")
     @JsonIgnore
-    private List<Article> articlesEdited = Collections.emptyList();;
+    private List<Article> articlesEdited = new ArrayList<>();;
 
     public User() {
         super();

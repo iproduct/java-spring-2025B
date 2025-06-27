@@ -1,9 +1,11 @@
 package course.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,11 +23,12 @@ public class Article {
     @ManyToOne
     private User editor;
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime publishDate =  LocalDateTime.now();
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> tags = Collections.emptySet();
+    private Set<String> tags = new  HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER )
-    private Set<Category> categories = Collections.emptySet();
+    private Set<Category> categories = new HashSet<>();
 
     public Article() {
     }
