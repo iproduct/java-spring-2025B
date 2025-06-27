@@ -2,6 +2,8 @@ package course.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
@@ -14,10 +16,14 @@ import static course.spring.model.Role.READER;
 
 @Entity
 public class User extends Person {
+    @Basic(optional = false)
+    @Column(unique = true, nullable = false, updatable = false, length = 30)
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private Role role = READER;
+    @Basic(optional = false)
+    @Column(unique = true, nullable = false, length = 80)
     private String email;
     @OneToMany(mappedBy = "author")
     @JsonIgnore
