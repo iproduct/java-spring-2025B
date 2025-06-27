@@ -2,10 +2,7 @@ package course.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.util.Named;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,6 +18,8 @@ public class Person implements Identifiable<Long>, Named, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(generator = "userSeq" , strategy = GenerationType.SEQUENCE)
+//    @SequenceGenerator(name="userSeq", allocationSize = 1)
     private Long id;
     private String firstName;
     private String lastName;

@@ -12,14 +12,14 @@ import java.util.List;
 import static course.spring.model.Role.READER;
 
 @Entity
-@Table(name="USERS", uniqueConstraints = {
-        @UniqueConstraint(name="UC_USERNAME", columnNames={"USERNAME"}),
-        @UniqueConstraint(name="UC_FIST_LAST_NAME", columnNames={"FIRST_NAME", "LAST_NAME"})
-})
-//@Table(name="USERS", indexes = {
-//        @Index(name = "UC_USERNAME", columnList = "USERNAME", unique = true),
-//        @Index(name = "UC_NAMES", columnList = "FIRST_NAME,LAST_NAME",  unique = true),
+//@Table(name="USERS", uniqueConstraints = {
+//        @UniqueConstraint(name="UC_USERNAME", columnNames={"USERNAME"}),
+//        @UniqueConstraint(name="UC_FIST_LAST_NAME", columnNames={"FIRST_NAME", "LAST_NAME"})
 //})
+@Table(name="USERS", indexes = {
+        @Index(name = "UC_USERNAME", columnList = "USERNAME", unique = true),
+        @Index(name = "UC_NAMES", columnList = "FIRST_NAME,LAST_NAME",  unique = true),
+})
 public class User extends Person {
     @Basic(optional = false)
     @Column( nullable = false, updatable = false, length = 30)
