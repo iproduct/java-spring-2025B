@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    List<Article> findByTitleContaining(String titlePart);
+    List<Article> findByTitleContainingOrContentContaining(String titlePart, String contentPart);
 }

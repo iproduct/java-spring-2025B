@@ -45,8 +45,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Article> getArticleByTitle(String title) {
-        return articleRepository.findByTitleContaining(title);
+    public List<Article> getArticleByTitleOrContent(String title, String content){
+        return articleRepository.findByTitleContainingOrContentContaining(title, content);
     }
 
     @Override

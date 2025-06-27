@@ -39,6 +39,15 @@ public class ArticleRestController {
         return mapArticleToArticleDetailDto(articleService.getArticleById(id));
     }
 
+    @GetMapping(params = {"title", "content"})
+    public List<ArticleDetailDto> getArticleByTitleOrContent(
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "content", required = false) String content) {
+        return articleService.getArticleByTitleOrContent(title, content).stream()
+                .map(article -> mapArticleToArticleDetailDto(article))
+                .collect(Collectors.toList());
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Article> addArticle(@RequestBody Article article) {
